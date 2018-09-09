@@ -3,7 +3,7 @@
 	Departamento de Ciência da Computação
 	Teoria e Aplicação de Grafos - 1/2018
 	Aluno: Otávio Souza de Oliveira ; Matrícula : 15/0143401
-	Versão do compilador: gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.10)
+	Versão do compilador: gcc version 7.3.0 (Ubuntu 7.3.0-16ubuntu3)
 	Descricao: Este programa Cria um grafo usando lista de adjacência utilizando como entrada o arquivo "karate.gml",
 	calcula o Coeficiente de Aglomeracao de cada vertice , assim como o do grafo ; e utiliza o algoritmo de Bron-Kerbosch
     para encontrar os cliques maximais.
@@ -23,7 +23,8 @@ int main(){
     Grafo grafo(35); // Número de vértices do grafo
     string line , word;
     int tam , num , op = 0;
-    vector <int> source , target; 
+    vector <int> source , target;
+    vector <int> R , P , X; 
 
     //Leitura do arquivo para construir o grafo
     while(getline (file,line)){
@@ -61,33 +62,45 @@ int main(){
     //Aqui passamos os valores dos vetores source e target
     //para construir a lista de adjacência de cada vértice
     //sendo que target é adicionado a lista de vizinhos de source
-    for(int i = 0 ; i < source.size() ; i++)
-        grafo.addAresta(source[i] , target[i]); 
+    int tam_vector = source.size();
+    for(int i = 0 ; i < tam_vector ; i++)
+        grafo.addAresta(source[i] , target[i]);
+
+    grafo.Bronkerbosch(R,P,X);         
      
     do{
+
         system("clear");
 
-        cout << "*************************************************" << endl;
-        cout << "******               MENU                  ******" << endl;
-        cout << "Informe a opcao desejada : " << endl;
-        cout << "1 - Grau de saida do vertice" << endl;
-        cout << "2 - Todos os cliques maximais" << endl;
-        cout << "3 - O Coeficiente de Aglomeracao de cada vertice" << endl;
-        cout << "4 - O Coeficiente medio de Aglomeracao do Grafo" << endl;
+        cout << "***************************************************" << endl;
+        cout << "******                 MENU                  ******" << endl;
+        cout << "* Informe a opcao desejada :                      *" << endl;
+        cout << "* 1 - Grau de saida do vertice                    *" << endl;
+        cout << "* 2 - Todos os cliques maximais                   *" << endl;
+        cout << "* 3 - O Coeficiente de Aglomeracao de cada vertice*" << endl;
+        cout << "* 4 - O Coeficiente medio de Aglomeracao do Grafo *" << endl;
+        cout << "***************************************************" << endl;
         cin >> op;
 
         switch(op){
-            case 1:
+            case 1: 
                 for(int i = 1 ; i <= 34 ; i++){
                     cout << "Grau de saida do vertice  " << i << ": " << grafo.GrauSaida(i) << endl;
                     cout << "*********************************** "<< endl;
                 }
+                cout << "Aperte <enter> para voltar ao MENU" << endl;
+                getchar();
+                getchar();
+            break;    
+            case 2:  
+                grafo.run_Bronkerbosch();
+                getchar();
+                getchar();
+            break;
 
-                break;
-            case 2: break;
-            case 3: break;
-            case 4: break;
-            default: cout << "Informe o valor correto" << endl;            
+            case 3:cout << "aqui3" << endl; break;
+            case 4:cout << "aqui4" << endl; break;
+                    
         };
 
     }while(op >= 1 && op <= 4);  
