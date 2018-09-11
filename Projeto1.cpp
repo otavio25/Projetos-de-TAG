@@ -1,13 +1,12 @@
 /* 	Universidade de Brasília
-	Instituto de Ciências Exatas
 	Departamento de Ciência da Computação
-	Teoria e Aplicação de Grafos - 1/2018
+	Teoria e Aplicação de Grafos - 2/2018
 	Aluno: Otávio Souza de Oliveira ; Matrícula : 15/0143401
 	Versão do compilador: gcc version 7.3.0 (Ubuntu 7.3.0-16ubuntu3)
 	Descricao: Este programa Cria um grafo usando lista de adjacência utilizando como entrada o arquivo "karate.gml",
 	calcula o Coeficiente de Aglomeracao de cada vertice , assim como o do grafo ; e utiliza o algoritmo de Bron-Kerbosch
     para encontrar os cliques maximais.
-	Execução : para executar utilize  g++ -Wall -ansi Projeto1.cpp -o projeto1 e depois utlize ./projeto1 lembrando que 
+	Execução : para executar utilize  g++ Projeto1.cpp -o projeto1 e depois utlize ./projeto1 lembrando que 
     para o funcionamento adequado do programa o arquivo "karate.gml" e "grafos.h" precisam estar no mesmo diretório do código fonte.
 	 */
 
@@ -64,10 +63,19 @@ int main(){
     //sendo que target é adicionado a lista de vizinhos de source
     int tam_vector = source.size();
     for(int i = 0 ; i < tam_vector ; i++)
-        grafo.addAresta(source[i] , target[i]);
+        grafo.addAresta(source[i] , target[i]);   
+    
+    for (int i=1; i <= 34 ; i++)
+		P.push_back(i);
+    grafo.Bronkerbosch(R,P,X);
 
-    grafo.Bronkerbosch(R,P,X);         
-     
+    for(int i = 1 ; i <= 34 ; i++){
+        int tam = grafo.DFS(i);
+
+        if(tam != 0)
+            cout <<"Id = (" << i <<")"<<"--> contem ciclo"<< "---> qts vertices : " <<tam<<endl;
+    }
+
     do{
 
         system("clear");
@@ -78,7 +86,6 @@ int main(){
         cout << "* 1 - Grau de saida do vertice                    *" << endl;
         cout << "* 2 - Todos os cliques maximais                   *" << endl;
         cout << "* 3 - O Coeficiente de Aglomeracao de cada vertice*" << endl;
-        cout << "* 4 - O Coeficiente medio de Aglomeracao do Grafo *" << endl;
         cout << "***************************************************" << endl;
         cin >> op;
 
@@ -92,18 +99,34 @@ int main(){
                 getchar();
                 getchar();
             break;    
+
             case 2:  
                 grafo.run_Bronkerbosch();
+                cout << "Aperte <enter> para voltar ao MENU" << endl;
                 getchar();
                 getchar();
             break;
 
-            case 3:cout << "aqui3" << endl; break;
-            case 4:cout << "aqui4" << endl; break;
+            case 3: 
+                vector<long int> TriExistentes , TriPossiveis;
+
+                for(int i = 1 ; i <= 34 ; i++){
+                    TriExistentes.push_back(grafo.DFS(i));
+                    TriPossiveis.push_back((grafo.GrauSaida(i) * (grafo.GrauSaida(i) - 1))/2);
+                }
+
+                for(int i = 1 ; i <= 34 ; i++){
+                    cout <<"vertice : "<< i <<" coef. aglomeracao "<< TriExistentes[i]<< "/" << TriPossiveis[i] << endl;   
+                }
+
+                cout << "Aperte <enter> para voltar ao MENU" << endl;
+                getchar();
+                getchar();
+            break;
                     
         };
 
-    }while(op >= 1 && op <= 4);  
+    }while(op >= 1 && op <= 4);
     
     file.close();
 
