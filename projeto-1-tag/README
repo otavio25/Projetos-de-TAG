@@ -1,0 +1,11 @@
+ 	Universidade de Brasília
+	Departamento de Ciência da Computação
+	Teoria e Aplicação de Grafos - 2/2019
+	Aluno: Otávio Souza de Oliveira ; Matrícula : 15/0143401
+	Versão do compilador: gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1)
+
+	Compilação : g++ main.cpp -o projeto1 
+    Execuçao: ./projeto1
+ 
+    Para o funcionamento adequado do programa o arquivo "soc-dolphins.txt" e "grafos.h" precisam estar no mesmo diretório do código fonte.
+
