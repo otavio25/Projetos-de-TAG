@@ -55,10 +55,11 @@ int main(){
     grafo.Bronkerbosch(R,P,X);
 
     vector<float>::iterator it;
-    int i = 1;
     coefficients = grafo.clusteringCoefficient();
 
     do{
+        int i = 1;
+        
         system("clear");
 
         cout << "****************************************************" << endl;
