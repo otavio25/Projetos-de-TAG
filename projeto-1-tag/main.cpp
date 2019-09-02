@@ -7,44 +7,40 @@ int main(){
 
     Grafo grafo(63);
     vector <int> source , target;
-    int tam, num, op;
-    string line, word;
+    int tam, num, num2, op;
+    string line;
     vector <int> R , P , X;
     vector<float> coefficients;
 
     while(getline (file,line)){
         tam = line.length();
 
-        word = line.substr(0,6);
-
-        if(word == "source"){
-            num = 0;
-            for(int i = 0; i < tam; i++){
-                if(isdigit(line[i])){
-                    if(num == 0){
-                        num = (line[i] - 48 );
-                    }
-                    else{
-                        num = (num*10) + (line[i] - 48 );
-                    }
+        int i;
+        num = 0;
+        num2 = 0;
+        for(i = 0; i < tam; i++){
+            if(line[i] != ' ' && i <= 3){
+                if(num == 0){
+                    num = (line[i] - 48 );
+                }
+                else{
+                    num = (num*10) + (line[i] - 48 );
                 }
             }
-            source.push_back(num);
+            else{
+                if(line[i] == ' '){
+                    i++;
+                }                
+                if(num2 == 0){
+                    num2 = (line[i] - 48 );
+                }
+                else{
+                    num2 = (num2*10) + (line[i] - 48 );
+                }
+            }
         }
-        else if(word == "target"){
-            num = 0;
-            for(int i = 0; i < tam; i++){
-                if(isdigit(line[i])){
-                    if(num == 0){
-                        num = (line[i] - 48 );
-                    }
-                    else{
-                        num = (num*10) + (line[i] - 48 );
-                    }
-                }
-            }
-            target.push_back(num);
-        }        
+        source.push_back(num);
+        target.push_back(num2);      
     }
 
     int size = source.size();
